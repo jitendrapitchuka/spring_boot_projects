@@ -1,0 +1,5 @@
+package com.jitendra.todolist.entity;
+
+public class ToDoentity {
+
+}
