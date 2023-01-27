@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class ToDoentity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
@@ -24,11 +24,16 @@ public class ToDoentity {
 	public ToDoentity() {
 		
 	}
-
 	public ToDoentity(int id, String item) {
 		this.id = id;
 		this.item = item;
 	}
+	
+	public ToDoentity(String item) {
+		this.item = item;
+	}
+	
+	
 
 	public int getId() {
 		return id;
