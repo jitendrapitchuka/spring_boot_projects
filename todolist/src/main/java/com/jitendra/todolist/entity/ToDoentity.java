@@ -6,7 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+
+
+
+
 
 @Entity
 @Table(name="my_todo")
@@ -17,19 +21,20 @@ public class ToDoentity {
 	@Column(name="id")
 	private int id;
 	
+	
 	@Column(name="item")
-	@NotNull
+	@NotEmpty
 	private String item;	
 	
 	public ToDoentity() {
 		
 	}
-	public ToDoentity(int id, String item) {
+	public ToDoentity(int id,String item) {
 		this.id = id;
 		this.item = item;
 	}
 	
-	public ToDoentity(String item) {
+	public ToDoentity( String item) {
 		this.item = item;
 	}
 	

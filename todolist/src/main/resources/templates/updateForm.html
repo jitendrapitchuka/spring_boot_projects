@@ -7,14 +7,21 @@
 </head>
 
 <body>
+<div class="container my-5"></div>
  <form action="#" th:action="@{/save}"
 						 th:object="${updateitem}" method="POST">
 		
 			<!-- Add hidden form field to handle update -->
+			
 			<input type="hidden" th:field="*{id}" />
-			<label>Item:</label>
+			<label class="pb-3 p">Item:</label>
+			
+			
 			<input type="text" th:field="*{item}"
-					class="form-control mb-4 col-4" placeholder="item">
+					class="form-control mb-4 col-4 border border-primary" placeholder="item" >
+			<div class="alert alert-warning" th:if="${#fields.hasErrors('item')}" th:errors="*{item}"></div> 
+					
+				  
 					<button type="submit" class="btn btn-primary">Save</button>
  
         </form>
