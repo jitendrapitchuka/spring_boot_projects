@@ -2,67 +2,86 @@ package com.jitendra.todolist.controller;
 
 
 
-import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jitendra.todolist.entity.ToDoentity;
 import com.jitendra.todolist.repo.ToDoRepo;
 
-@Controller
+@RestController
 public class ToDoController {
 
 	@Autowired
 	private ToDoRepo todorepo;
 	
-	@GetMapping("/")
-	public String alltodoList(Model themodel) {
+
+	
+	@GetMapping("/items")
+	public List<ToDoentity> alltodoList(Model themodel) {
 		
-		themodel.addAttribute("alltodolist", todorepo.findAll());
+		//themodel.addAttribute("alltodolist", todorepo.findAll());
 		
-		return "alltodos";
+		//return "alltodos";
+		return todorepo.findAll();
 	}
 	
-	@PostMapping("/update") 
-	public String showUpdate(@RequestParam("id") int theid,Model themodel) {
+	@GetMapping("/items/{theid}")
+	public Optional<ToDoentity> todobyid(@PathVariable int theid) {
 		
-		themodel.addAttribute("updateitem", todorepo.findById(theid));
-		return "updateForm";
+		return todorepo.findById(theid);
+		
 	}
 	
-	@PostMapping("/save")
-	public String saveForm(@Valid @ModelAttribute("updateitem") ToDoentity updateObj, BindingResult bindingResult) {
-		System.out.println("/////////////"+updateObj.getItem()+"//////////////////");
-		if (bindingResult.hasErrors()) {
-			return "updateForm";
-		}
-		todorepo.save(updateObj);
+	@PutMapping("/items") 
+	public ToDoentity showUpdate(@RequestBody ToDoentity theentity) {
 		
-		return "redirect:/";
+		//themodel.addAttribute("updateitem", todorepo.findById(theid));
+		todorepo.save(theentity);
+		return theentity;
 	}
 	
+//	@PostMapping("/save")
+//	public String saveForm(@Valid @ModelAttribute("updateitem") ToDoentity updateObj, BindingResult bindingResult) {
+//		System.out.println("/////////////"+updateObj.getItem()+"//////////////////");
+//		if (bindingResult.hasErrors()) {
+//			return "updateForm";
+//		}
+//		todorepo.save(updateObj);
+//		
+//		return "redirect:/";
+//	}
 	
 	
-	@PostMapping("/delete")
-	public String deleteForm(@RequestParam("id") int theid) {
+	
+	
+	
+	@DeleteMapping("/items/{theid}")
+	public String deleteForm(@PathVariable int theid) {
 		
 		todorepo.deleteById(theid);
 		
-		return "redirect:/";
+		//return "redirect:/";
+		return "deleted success";
 	}
 	
-	@GetMapping("/add")
-	public String addItem(Model themodel) {
+	@PostMapping("/items")
+	public ToDoentity addItem(@RequestBody ToDoentity theentity) {
+		theentity.setId(0);
+		todorepo.save(theentity);
 		
-		ToDoentity empObj=new ToDoentity();
-		themodel.addAttribute("updateitem", empObj);
-		return "updateForm";
+		//themodel.addAttribute("updateitem", empObj);
+		return theentity;
 	}
 }
