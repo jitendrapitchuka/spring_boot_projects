@@ -45,6 +45,9 @@ export default function ListTodosComponent(){
        navigate(`/todo/${id}`)
     }
 
+    function addNewTodo(){
+        navigate("/todo/-1")
+    }
     return(
         <div className='ListTodosComponent'>
 {message && <div className="alert alert-warning">{message}</div>}
@@ -72,7 +75,7 @@ export default function ListTodosComponent(){
   </tbody>
 </table>
 
-         
+         <div className="btn btn-success m-5" onClick={addNewTodo}>Add New TODO</div>
         
         </div> 
     )

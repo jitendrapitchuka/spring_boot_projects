@@ -22,3 +22,7 @@ export const deleteTodoApi=(id)=>{
  export const updateTodoApi=(id,todo)=>{
     return  apiClient.put('/items',todo)
  }
+
+ export const CreateTodoApi=(todo)=>{
+   return  apiClient.post('/items',todo)
+}
