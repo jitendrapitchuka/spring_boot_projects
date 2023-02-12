@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 export default function ExploreTopBooks() {
   return (
     <div className='p-5 mb-4 bg-dark header '>
@@ -7,7 +7,7 @@ export default function ExploreTopBooks() {
             <div>
                 <h1 className='display-5 fw-bold'>Find your next adventure</h1>
                 <p className='col-md-8 fs-4'>where would like to go next</p>
-                <a type='button' className='btn main-color btn-lg text-white' href='#'>Explore top books</a>
+                <Link type='button' className='btn main-color btn-lg text-white' to='/search'>Explore top books</Link>
             </div>
 
         </div>

@@ -7,11 +7,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.jitendra.springbootlibrary.entity.Book;
+import com.jitendra.springbootlibrary.entity.Review;
 
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer{
 
 	private String theAllowedOrigins = "http://localhost:3000";
+	
+	
 	
 	@Override
 	 public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,
@@ -24,7 +27,9 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
                 HttpMethod.PUT};
 
         config.exposeIdsFor(Book.class);
+        config.exposeIdsFor(Review.class);
         disableHttpMethods(Book.class, config, theUnsupportedActions);
+        disableHttpMethods(Review.class, config, theUnsupportedActions);
         
         /* Configure CORS Mapping */
         cors.addMapping(config.getBasePath() + "/**")

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
@@ -7,11 +8,11 @@ export default function Footer() {
             <p className='col-md-4 mb-0 text-white'>Copyright Example Library App,Inc</p>
             <ul className='nav navbar-dark col-md-4 justify-content-end'>
                 <li className='nav-item'>
-                    <a href='#' className='nav-link px-2 text-white'>Home</a>
+                    <Link to='/home' className='nav-link px-2 text-white'>Home</Link>
                 </li>
 
                 <li className='nav-item'>
-                    <a href='#' className='nav-link px-2 text-white'>Search books</a>
+                    <Link to='/search' className='nav-link px-2 text-white'>Search books</Link>
                 </li>
 
             </ul>

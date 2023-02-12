@@ -62,6 +62,7 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\projects\library-app\02-backend\spring-boot-library"/>
 			<item value="D:\projects\todolist"/>
 			<item value="D:\projects\ToDoList"/>
 		</list>
