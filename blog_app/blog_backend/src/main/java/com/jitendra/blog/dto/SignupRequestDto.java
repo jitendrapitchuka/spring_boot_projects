@@ -2,7 +2,7 @@ package com.jitendra.blog.dto;
 
 
 
-public class UserDto {
+public class SignupRequestDto {
 
 	private int id;
 	private String firstName;
@@ -10,7 +10,7 @@ public class UserDto {
 	private String email;
 	private String password;
 	
-	public UserDto(int id, String firstName, String lastName, String email,String password) {
+	public SignupRequestDto(int id, String firstName, String lastName, String email,String password) {
 		
 		this.id = id;
 		this.firstName = firstName;
@@ -19,7 +19,7 @@ public class UserDto {
 		this.password=password;
 	}
 	
-	public UserDto() {
+	public SignupRequestDto() {
 		
 	}
 

@@ -23,13 +23,13 @@ public class Posts {
 	private String description;
 	
 	@Column(name="likes_count")
-	private String likes_count;
+	private int likes_count;
 	
 	public Posts() {
 		
 	}
 
-	public Posts(int id, String post_header, String description, String likes_count) {
+	public Posts(int id, String post_header, String description, int likes_count) {
 		
 		this.id = id;
 		this.post_header = post_header;
@@ -61,11 +61,11 @@ public class Posts {
 		this.description = description;
 	}
 
-	public String getLikes_count() {
+	public int getLikes_count() {
 		return likes_count;
 	}
 
-	public void setLikes_count(String likes_count) {
+	public void setLikes_count(int likes_count) {
 		this.likes_count = likes_count;
 	}
 	
