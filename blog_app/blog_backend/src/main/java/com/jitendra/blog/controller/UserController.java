@@ -3,6 +3,7 @@ package com.jitendra.blog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -12,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jitendra.blog.dto.LoginRequestDto;
 import com.jitendra.blog.dto.SignupRequestDto;
 import com.jitendra.blog.entity.Posts;
-import com.jitendra.blog.service.PostsService;
 import com.jitendra.blog.service.LoginService;
+import com.jitendra.blog.service.PostsService;
 import com.jitendra.blog.util.ApiResponse;
 import com.jitendra.blog.util.JwtUtils;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class UserController {
 	
@@ -57,6 +58,13 @@ public class UserController {
 		return ResponseEntity.ok().body(apiResponse);
 	}
 	
+	@GetMapping("/posts")
+public ResponseEntity<ApiResponse>  posts() {
+		
+		ApiResponse apiResponse=thePostService.allposts();
+		
+		return ResponseEntity.ok().body(apiResponse);
+	}
 	
 
 }

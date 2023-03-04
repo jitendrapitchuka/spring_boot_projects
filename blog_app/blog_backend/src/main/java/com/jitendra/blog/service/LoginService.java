@@ -59,6 +59,10 @@ public class LoginService {
 		Map<String,Object>data=new HashMap<>();
 		
 		data.put("accessToken", token);
+		data.put("userId",theuser.getId());
+		data.put("userEmail",theuser.getEmail());
+		data.put("firstName",theuser.getFirstName());
+		data.put("lastName",theuser.getLastName());
 		
 		apiResponse.setData(data);
 		

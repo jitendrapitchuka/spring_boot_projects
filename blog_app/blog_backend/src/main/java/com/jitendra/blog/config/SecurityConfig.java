@@ -22,9 +22,9 @@ public class SecurityConfig   {
 		
 		http.cors().and().csrf().disable();
 		
-		http.authorizeHttpRequests((requests) -> requests
-			.antMatchers("/api/signup","/api/newpost","/api/login").permitAll()
-			.anyRequest().authenticated());
+		http.authorizeHttpRequests()	
+				.antMatchers("/api/**")
+			.permitAll();
 		
 		
 		// http.authenticationProvider(authenticationProvider());

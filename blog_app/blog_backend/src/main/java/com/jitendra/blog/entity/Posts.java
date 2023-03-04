@@ -25,16 +25,20 @@ public class Posts {
 	@Column(name="likes_count")
 	private int likes_count;
 	
+	@Column(name="email_id")
+	private String emailId;
+	
 	public Posts() {
 		
 	}
 
-	public Posts(int id, String post_header, String description, int likes_count) {
+	public Posts(int id, String post_header, String description, int likes_count,String emailId) {
 		
 		this.id = id;
 		this.post_header = post_header;
 		this.description = description;
 		this.likes_count = likes_count;
+		this.emailId=emailId;
 	}
 
 	public int getId() {
@@ -67,6 +71,14 @@ public class Posts {
 
 	public void setLikes_count(int likes_count) {
 		this.likes_count = likes_count;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	
 	
