@@ -12,5 +12,8 @@ public interface PostsRepo extends JpaRepository<Posts, Integer> {
 	
 	@Query(value="SELECT e FROM Posts e")
 	public List<Posts> allPosts();
+	
+	
+	public List<Posts> findByUserId(int userId);
 
 }

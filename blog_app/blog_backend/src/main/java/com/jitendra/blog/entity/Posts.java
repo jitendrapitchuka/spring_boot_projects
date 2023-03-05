@@ -28,17 +28,22 @@ public class Posts {
 	@Column(name="email_id")
 	private String emailId;
 	
+	@Column(name="user_id")
+	private int userId;
+	
+	
 	public Posts() {
 		
 	}
 
-	public Posts(int id, String post_header, String description, int likes_count,String emailId) {
+	public Posts(int id, String post_header, String description, int likes_count,String emailId,int userId) {
 		
 		this.id = id;
 		this.post_header = post_header;
 		this.description = description;
 		this.likes_count = likes_count;
 		this.emailId=emailId;
+		this.userId=userId;
 	}
 
 	public int getId() {
@@ -80,6 +85,15 @@ public class Posts {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
 	
 	
 	
