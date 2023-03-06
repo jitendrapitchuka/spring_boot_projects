@@ -3,6 +3,7 @@ package com.jitendra.blog.service;
 
 import java.util.List;
 
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +60,19 @@ public class PostsService {
 		
 		
 	}
+	
+	public ApiResponse deleteByPostId(int postId) {
+		ApiResponse apiResponse=new ApiResponse();
+		
+		
+		
+		postrepo.deleteById(postId);		
+		apiResponse.setData("deleted successfully");
+	
+		return apiResponse;
+		
+		
+	}
+	
+	
 }

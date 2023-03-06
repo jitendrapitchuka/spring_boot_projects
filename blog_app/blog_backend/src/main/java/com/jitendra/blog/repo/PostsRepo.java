@@ -15,5 +15,6 @@ public interface PostsRepo extends JpaRepository<Posts, Integer> {
 	
 	
 	public List<Posts> findByUserId(int userId);
+	
 
 }

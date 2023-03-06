@@ -6,14 +6,24 @@ export default function PostByEmail(props) {
 
     const[reponseData,setResponseData]=useState([])
     // const[emailId,setEmailId]=useState("")
-    useEffect(() => {
-      axios.get(`http://localhost:8080/api/postsByUserId?userId=${props.userId}`)
+    useEffect( () => {
+        const getpostById=async()=>{
+     await axios.get(`http://localhost:8080/api/postsByUserId?userId=${props.userId}`)
       .then((response)=>
       setResponseData(response.data.data)
-)
+)}
+getpostById()
 }, [props.userId])
 
-    console.log(reponseData)
+  function handleDelete(id){
+    try{
+  axios.delete(`http://localhost:8080/api/delete?postId=${id}`).then((response)=>{console.log(response.data.data)})}
+
+ catch(error){
+    console.log(error)
+
+}
+}
 
   return (
     <div>
@@ -26,11 +36,13 @@ export default function PostByEmail(props) {
                 <div className="card-body text-white bg-secondary mb-5">
                   <h5 className="card-title" >title</h5>
                   <p className="card-text" >{temppost.description}</p>
-                  
+                  <button className='btn btn-danger' onClick={()=>handleDelete(temppost.id)}>Delete</button>
                 </div>
+                
                 </div>
           
                ))
+               
                }
 
 </div>

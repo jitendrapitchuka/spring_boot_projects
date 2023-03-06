@@ -6,6 +6,7 @@ import { Route, Switch,Redirect } from 'react-router-dom';
 import Home from './components/Home';
 import Welcome from './components/Welcome';
 import Navbar from './components/Navbar';
+import EditOrNewPost from './components/EditOrNewPost';
 
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
         
    <Route path='/login'>
    <Login/>
+   </Route>
+   <Route path='/newpost'>
+   <EditOrNewPost/>
    </Route>
       
     

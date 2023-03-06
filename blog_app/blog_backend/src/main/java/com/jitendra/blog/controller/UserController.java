@@ -3,10 +3,10 @@ package com.jitendra.blog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,9 +50,9 @@ public class UserController {
 	
 	
 	@PostMapping("/newpost")
-	public ResponseEntity<ApiResponse>  newPost(@RequestHeader(value="authorization",defaultValue="") String auth ,@RequestBody Posts thepost) throws Exception {
-		
-		jwtUtils.verify(auth);
+	public ResponseEntity<ApiResponse>  newPost(@RequestBody Posts thepost) throws Exception {
+		//@RequestHeader(value="authorization",defaultValue="") String auth 
+//		jwtUtils.verify(auth);
 		
 		ApiResponse apiResponse=thePostService.addPost(thepost);
 		
@@ -74,6 +74,15 @@ public ResponseEntity<ApiResponse>  posts() {
 			
 			return ResponseEntity.ok().body(apiResponse);
 		}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<ApiResponse>  delete(@RequestParam int postId) {
+		
+		ApiResponse apiResponse=thePostService.deleteByPostId(postId);
+		
+		return ResponseEntity.ok().body(apiResponse);
+	}
+	
 	
 	
 	

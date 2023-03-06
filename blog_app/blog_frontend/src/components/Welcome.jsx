@@ -1,24 +1,34 @@
 import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
+
+import { useHistory, useLocation } from 'react-router-dom';
 import PostByEmail from './PostByEmail';
 
 
-export default function Welcome() {
+export default function Welcome(props) {
 
     const location = useLocation();
+    const history=useHistory(null)
 
     useEffect(() => {
-        console.log(location.state.firstName)
+        console.log(location.state)
         
-     }, [location]);
+     }, [location.state]);
+
+     function handleClick() {
+        history.push("/newpost",location.state);
+      }
 
   return (
     <div>
+        
+            
        <h2>Welcome {location.state.firstName}</h2> 
-     <h3>{location.state.userEmail}</h3>  
-       
+      
+       <button  className='btn btn-primary' onClick={handleClick}>New Post</button>
+      
        <PostByEmail firstName={location.state.firstName} lastName={location.state.lastName} emailId={location.state.userEmail}
        userId={location.state.userId} />
+
    </div>
   )
 }
