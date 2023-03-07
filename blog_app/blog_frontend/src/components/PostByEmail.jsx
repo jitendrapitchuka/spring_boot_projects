@@ -1,19 +1,26 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 
 
 export default function PostByEmail(props) {
 
     const[reponseData,setResponseData]=useState([])
+    const location = useLocation();
+    
     // const[emailId,setEmailId]=useState("")
     useEffect( () => {
         const getpostById=async()=>{
-     await axios.get(`http://localhost:8080/api/postsByUserId?userId=${props.userId}`)
+     await axios.get(`http://localhost:8080/api/postsByUserId?userId=${location.state.userId}`,
+     {headers:{"authorization":location.state.accessToken}})
       .then((response)=>
       setResponseData(response.data.data)
+      
 )}
 getpostById()
-}, [props.userId])
+// eslint-disable-next-line
+}, [location.state.userId])
+
 
   function handleDelete(id){
     try{
@@ -27,6 +34,7 @@ getpostById()
 
   return (
     <div>
+      <h2>User profile</h2>
     <div className="card w-75 mt-2 " >
     
         {reponseData.map((temppost)=>(

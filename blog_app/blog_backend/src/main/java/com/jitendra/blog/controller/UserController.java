@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,8 +69,8 @@ public ResponseEntity<ApiResponse>  posts() {
 	}
 	
 	@GetMapping("/postsByUserId")
-	public ResponseEntity<ApiResponse>  posts(@RequestParam int userId) {
-			
+	public ResponseEntity<ApiResponse>  posts(@RequestHeader(value="authorization") String auth,@RequestParam int userId) throws Exception {
+		jwtUtils.verify(auth);
 			ApiResponse apiResponse=thePostService.postByUserId(userId);
 			
 			return ResponseEntity.ok().body(apiResponse);

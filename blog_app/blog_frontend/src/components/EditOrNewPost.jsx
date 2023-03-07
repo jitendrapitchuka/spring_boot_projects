@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import {  useHistory, useLocation } from 'react-router-dom'
 
 export default function EditOrNewPost(props) {
 
@@ -23,7 +23,8 @@ export default function EditOrNewPost(props) {
         }).then((response)=>{
             
             console.log(response.data.data)
-            history.push('/welcome',location.state)
+             history.push('/welcome')
+
             
            
         } )
@@ -46,7 +47,7 @@ export default function EditOrNewPost(props) {
 
   return (
     <div>
-<form>
+<form onSubmit={handleSubmit}>
   <div className="form-group">
     <label >Post title</label>
     <input type="text" className="form-control"  placeholder="Enter Your post title"
@@ -65,7 +66,7 @@ export default function EditOrNewPost(props) {
     />
   </div>
   
-  <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Save</button>
+  <button type="submit" className="btn btn-primary" >Save</button>
 </form>
 
     </div>

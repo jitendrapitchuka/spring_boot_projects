@@ -41,7 +41,7 @@ public class JwtUtils {
 		Jwts.parser().setSigningKey(secret).parseClaimsJws(auth);
 		}
 		catch(Exception e) {
-			throw new Exception("Acess denied");
+			throw new Exception("Acess denied User Not authenticated");
 		}
 		
 		}

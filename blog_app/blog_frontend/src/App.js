@@ -7,6 +7,8 @@ import Home from './components/Home';
 import Welcome from './components/Welcome';
 import Navbar from './components/Navbar';
 import EditOrNewPost from './components/EditOrNewPost';
+import PostByEmail from './components/PostByEmail';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 
 function App() {
@@ -36,6 +38,9 @@ function App() {
    </Route>
    <Route path='/newpost'>
    <EditOrNewPost/>
+   </Route>
+   <Route path='/profile'>
+    <PostByEmail/>
    </Route>
       
     

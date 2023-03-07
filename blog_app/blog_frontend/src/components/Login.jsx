@@ -22,6 +22,7 @@ export default function Login(props) {
             console.log(response.data.data)
            
             history.push('/welcome',response.data.data )
+            localStorage.setItem('token', response.data.data.accessToken)
            
         } )
       

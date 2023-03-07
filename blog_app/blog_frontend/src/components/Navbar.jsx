@@ -1,8 +1,32 @@
 
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Navbar() {
     
+  const [auth,setAuth]=useState(false)
+
+  useEffect(() => {
+    setInterval(() => {
+    const token=localStorage.getItem("token")
+    if(token){
+      setAuth(true)
+    }
+    else{
+      setAuth(false)
+    }
+  }, 1);
+  }, [])
+
+  
+
+ 
+
+  const handleLogout = () => {
+   
+    localStorage.clear();
+  };
+
   return (
     
    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -16,12 +40,20 @@ export default function Navbar() {
       <li className="nav-item">
         <Link className="nav-link" to="/signup">SignUp</Link>
       </li>
+      
+      {
+        !auth ?
+       
       <li className="nav-item">
         <Link className="nav-link" to="/login">Login</Link>
       </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/">Logout</Link>
+      :
+      <li className="nav-item ">
+        <Link className="nav-link" to='/home' onClick={handleLogout}>Logout</Link>
       </li>
+     
+}
+     
     </ul>
     
   </div>
