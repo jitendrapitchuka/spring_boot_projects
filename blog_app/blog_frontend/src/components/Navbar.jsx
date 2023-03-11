@@ -29,8 +29,8 @@ export default function Navbar() {
 
   return (
     
-   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-  <Link className="navbar-brand" to="#">WEbsite</Link>
+   <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <Link className="navbar-brand" to="#">BLOG</Link>
   
   <div className="collapse navbar-collapse" id="navbarText">
     <ul className="navbar-nav mr-auto">

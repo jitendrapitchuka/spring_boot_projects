@@ -96,12 +96,40 @@ export default function Posts() {
                       auth &&
                       <>
                       <div className='float-start'>
-                    <button  onClick={()=>handleLikesUp(temppost.likesFlag,temppost.likes_count,temppost.id)} >   <i className="bi bi-hand-thumbs-up-fill" ></i></button>
-                    <button   onClick={()=>handleLikesDown(temppost.likesFlag,temppost.likes_count,temppost.id)} >   <i className="bi bi-hand-thumbs-down-fill"></i></button>
+                    <button  className="btn btn-primary" onClick={()=>handleLikesUp(temppost.likesFlag,temppost.likes_count,temppost.id)} >   <i className="bi bi-hand-thumbs-up-fill" ></i></button>
+                    <div className="vr" style={{padding:"1px"}}></div>
+                    <button  className="btn btn-primary"  onClick={()=>handleLikesDown(temppost.likesFlag,temppost.likes_count,temppost.id)} >   <i className="bi bi-hand-thumbs-down-fill"></i></button>
                     <strong>{temppost.likes_count}</strong></div>
                     
-                     <button className=''>  <i className="bi bi-chat"></i></button>
-                     
+                    
+                  
+
+                         
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i className="bi bi-chat">Comment</i>
+            </button>
+
+            
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" style={{color:"black"}} id="staticBackdropLabel">Add your Comment</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+                  <div className="input-group">
+              {/* <span className="input-group-text">With textarea</span> */}
+              <textarea className="form-control" aria-label="With textarea"></textarea>
+            </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-primary">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
                       </>
             }
                     </div>

@@ -9,7 +9,8 @@ import Navbar from './components/Navbar';
 import EditOrNewPost from './components/EditOrNewPost';
 import PostByEmail from './components/PostByEmail';
 import "bootstrap-icons/font/bootstrap-icons.css";
-
+import "bootstrap/dist/js/bootstrap.min.js";
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
       
     
       </Switch> 
-     
+     <Footer/>
       </div>
   );
 }
