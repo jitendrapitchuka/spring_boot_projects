@@ -7,16 +7,22 @@ export default function PostByEmail(props) {
 
     const[reponseData,setResponseData]=useState([])
     const location = useLocation();
+    const token=localStorage.getItem('token')
     
+
     // const[emailId,setEmailId]=useState("")
     useEffect( () => {
+     
         const getpostById=async()=>{
      await axios.get(`http://localhost:8080/api/postsByUserId?userId=${location.state.userId}`,
-     {headers:{"authorization":location.state.accessToken}})
+     {headers:{"authorization":token}})
       .then((response)=>
-      setResponseData(response.data.data)
+      setResponseData(response.data.data),
+      console.log(location.state.token)
       
 )}
+
+
 getpostById()
 // eslint-disable-next-line
 }, [location.state.userId])
@@ -28,6 +34,7 @@ getpostById()
 
  catch(error){
     console.log(error)
+   
 
 }
 }

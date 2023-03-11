@@ -31,12 +31,14 @@ public class Posts {
 	@Column(name="user_id")
 	private int userId;
 	
+	@Column(name="likes_flag")
+	private boolean likesFlag;
 	
 	public Posts() {
 		
 	}
 
-	public Posts(int id, String post_header, String description, int likes_count,String emailId,int userId) {
+	public Posts(int id, String post_header, String description, int likes_count,String emailId,int userId,boolean likesFlag) {
 		
 		this.id = id;
 		this.post_header = post_header;
@@ -44,6 +46,7 @@ public class Posts {
 		this.likes_count = likes_count;
 		this.emailId=emailId;
 		this.userId=userId;
+		this.likesFlag=likesFlag;
 	}
 
 	public int getId() {
@@ -92,6 +95,14 @@ public class Posts {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public boolean isLikesFlag() {
+		return likesFlag;
+	}
+
+	public void setLikesFlag(boolean likesFlag) {
+		this.likesFlag = likesFlag;
 	}
 	
 	

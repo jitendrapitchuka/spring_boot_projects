@@ -37,20 +37,27 @@ export default function Navbar() {
       <li className="nav-item active">
         <Link className="nav-link" to="/home">Home </Link>
       </li>
+      {
+        !auth ?
+        <>
       <li className="nav-item">
         <Link className="nav-link" to="/signup">SignUp</Link>
       </li>
       
-      {
-        !auth ?
+     
        
       <li className="nav-item">
         <Link className="nav-link" to="/login">Login</Link>
-      </li>
+      </li></>
       :
+      <>
       <li className="nav-item ">
         <Link className="nav-link" to='/home' onClick={handleLogout}>Logout</Link>
       </li>
+      {/* <li className="nav-item ">
+      <Link className="nav-link" to='/profile' >Profile</Link>
+    </li> */}
+    </>
      
 }
      

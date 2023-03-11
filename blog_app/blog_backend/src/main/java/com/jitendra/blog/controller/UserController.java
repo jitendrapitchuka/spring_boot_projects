@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,6 +85,14 @@ public ResponseEntity<ApiResponse>  posts() {
 		return ResponseEntity.ok().body(apiResponse);
 	}
 	
+	
+	@PutMapping("/put")
+public ResponseEntity<ApiResponse>  put(@RequestBody Posts thepost ) {
+		
+		ApiResponse apiResponse=thePostService.put(thepost.getLikes_count(),thepost.getId(),thepost.isLikesFlag());
+		
+		return ResponseEntity.ok().body(apiResponse);
+	}
 	
 	
 	

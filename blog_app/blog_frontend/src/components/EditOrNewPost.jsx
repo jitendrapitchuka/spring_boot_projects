@@ -23,7 +23,8 @@ export default function EditOrNewPost(props) {
         }).then((response)=>{
             
             console.log(response.data.data)
-             history.push('/welcome')
+            console.log(location.state)
+             history.push('/welcome',location.state)
 
             
            

@@ -28,7 +28,7 @@ public class PostsService {
 		
 		ApiResponse apiResponse=new ApiResponse();
 		User theuser=userrepo.findByEmail(thepost.getEmailId());
-		Posts thePost=new Posts(thepost.getId(),thepost.getPost_header(),thepost.getDescription(),thepost.getLikes_count(),thepost.getEmailId(),theuser.getId());
+		Posts thePost=new Posts(thepost.getId(),thepost.getPost_header(),thepost.getDescription(),thepost.getLikes_count(),thepost.getEmailId(),theuser.getId(),thepost.isLikesFlag());
 		
 		postrepo.save(thePost);
 		
@@ -73,6 +73,22 @@ public class PostsService {
 		
 		
 	}
+	
+	public ApiResponse put(int likescount,int postId,boolean likesFlag) {
+		ApiResponse apiResponse=new ApiResponse();
+		
+		postrepo.updateLikes(likescount, postId,likesFlag);
+		
+		
+		
+		
+		apiResponse.setData("updated successfully");
+	
+		return apiResponse;
+		
+		
+	}
+	
 	
 	
 }

@@ -13,6 +13,10 @@ export default function Welcome(props) {
     // const[reponseData,setResponseData]=useState([])
     const [auth,setAuth]=useState(false)
   const [change,SetChange]=useState(false)
+
+
+  
+  
     useEffect(() => {
         
         
@@ -31,10 +35,12 @@ export default function Welcome(props) {
 
      function handleClick() {
         history.push("/newpost",location.state);
+        
       }
 
       function handleProfile() {
         history.push("/profile",location.state);
+        console.log("location",location.state)
       }
 
   return (
