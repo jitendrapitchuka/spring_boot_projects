@@ -92,7 +92,7 @@ public ResponseEntity<ApiResponse>  posts() {
 	@PutMapping("/put")
 public ResponseEntity<ApiResponse>  put(@RequestBody Posts thepost ) {
 		
-		ApiResponse apiResponse=thePostService.put(thepost.getLikes_count(),thepost.getId(),thepost.isLikesFlag());
+		ApiResponse apiResponse=thePostService.put(thepost.getLikes_count(),thepost.getUserId(),thepost.isLikesFlag(),thepost.getId());
 		
 		return ResponseEntity.ok().body(apiResponse);
 	}

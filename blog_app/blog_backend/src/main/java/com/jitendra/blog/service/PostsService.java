@@ -74,10 +74,12 @@ public class PostsService {
 		
 	}
 	
-	public ApiResponse put(int likescount,int postId,boolean likesFlag) {
+	public ApiResponse put(int likescount,int userId,boolean likesFlag,int postId) {
 		ApiResponse apiResponse=new ApiResponse();
 		
-		postrepo.updateLikes(likescount, postId,likesFlag);
+		postrepo.updateLikes(likescount, userId,likesFlag,postId);
+		
+		
 		
 		
 		

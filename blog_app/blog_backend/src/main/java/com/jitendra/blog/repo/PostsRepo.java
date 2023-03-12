@@ -18,8 +18,7 @@ public interface PostsRepo extends JpaRepository<Posts, Integer> {
 	public List<Posts> findByUserId(int userId);
 	
 	@Modifying
-	@Query(value="update Posts  set likes_count=:count,likes_flag=:likesFlag where id=:postId")
-	 public void updateLikes(int count,int postId,boolean likesFlag);
+	@Query(value="update Posts  set likes_count=:count,likes_flag=:likesFlag where  id=:postId and user_id=:Id")
+	 public void updateLikes(int count,int Id,boolean likesFlag,int postId);
 	
-
 }

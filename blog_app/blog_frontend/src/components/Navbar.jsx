@@ -29,8 +29,8 @@ export default function Navbar() {
 
   return (
     
-   <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <Link className="navbar-brand" to="#">BLOG</Link>
+   <nav className="navbar navbar-dark navbar-expand-lg  bg-dark sticky-top" >
+  <Link className="navbar-brand mx-3" to="#" >BLOG</Link>
   
   <div className="collapse navbar-collapse" id="navbarText">
     <ul className="navbar-nav mr-auto">
@@ -41,7 +41,7 @@ export default function Navbar() {
         !auth ?
         <>
       <li className="nav-item">
-        <Link className="nav-link" to="/signup">SignUp</Link>
+        <Link className="nav-link " to="/signup">SignUp</Link>
       </li>
       
      

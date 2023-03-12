@@ -49,9 +49,10 @@ export default function Welcome(props) {
       {
         auth?
         <>
+        <div className='float-end mx-5'>
          <h2>Welcome</h2> 
          <button className="btn btn-primary" onClick={handleProfile}>Profile</button><br/><br/>
-         <button  className='btn btn-primary' onClick={handleClick}>New Post</button>
+         <button  className='btn btn-primary' onClick={handleClick}>New Post</button></div>
         <Posts />
        {/* <h2>Welcome {location.state.firstName}</h2> 
       

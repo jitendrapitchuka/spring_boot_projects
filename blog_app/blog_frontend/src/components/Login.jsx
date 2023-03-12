@@ -23,6 +23,7 @@ export default function Login(props) {
            
             history.push('/welcome',response.data.data )
             localStorage.setItem('token', response.data.data.accessToken)
+            localStorage.setItem('userr',response.data.data.userId)
            
         } )
       

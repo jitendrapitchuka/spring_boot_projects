@@ -32,7 +32,7 @@ export default function Comments() {
   {/* <div className="card-header">  Featured
   </div> */}
    
-  <div className="card-body bg-secondary text-white">
+  <div className="card-body text-white bg-secondary">
     {/* <h5 className="card-title">Special title treatment</h5> */}
 
     <p className="card-text text-start">{index+1}){tempcomment.comment}</p>

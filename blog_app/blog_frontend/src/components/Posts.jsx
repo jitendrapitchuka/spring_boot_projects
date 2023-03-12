@@ -10,6 +10,9 @@ export default function Posts() {
     const[count,setCount]=useState(1)
     const[comment,setComment]=useState("")
     const history=useHistory(null)
+    
+    const[helperid,sethelperid]=useState()
+    const[helperUserId,sethelperUserId]=useState()
     useEffect(() => {
       const token=localStorage.getItem("token")
 
@@ -34,9 +37,10 @@ export default function Posts() {
     }, [auth,count])
 
    
+   const userr=localStorage.getItem("userr")
    
-   
-  async function handleLikesUp(tflag,countt,id){
+  async function handleLikesUp(tflag,countt,userId,id){
+    
     console.log("tflag",tflag)
     if(!tflag){
     setCount(countt+1)
@@ -47,7 +51,9 @@ export default function Posts() {
       setCount(countt)
       
     }
-    await axios.put("http://localhost:8080/api/put",{likes_count:count,id:id,likesFlag:tflag})
+    if(userr!==userId)
+    tflag=false;
+    await axios.put("http://localhost:8080/api/put",{likes_count:count,userId:userId,likesFlag:tflag,id:id})
     .then((response)=>{
       console.log(count)
       // alert("You already liked!")
@@ -58,7 +64,10 @@ export default function Posts() {
 
    }
 
-   async function handleLikesDown(tflag,countt,id){
+   async function handleLikesDown(tflag,countt,userId,id){
+    
+    
+
     if(tflag){
     if(countt !== 0){
     setCount(countt-1)
@@ -71,7 +80,9 @@ export default function Posts() {
     
   //  alert("You already Disliked!")
     }
-    await axios.put("http://localhost:8080/api/put",{likes_count:count,id:id,likesFlag:tflag})
+    if(userr!==userId)
+    tflag=false;
+    await axios.put("http://localhost:8080/api/put",{likes_count:count,userId:userId,likesFlag:tflag,id:id})
     .then((response)=>{
       console.log(count)
     }
@@ -79,50 +90,61 @@ export default function Posts() {
     )
 
    }
-
-   async function handleComment(userid,id){
+   
+  //  function helperToComment(id,userId){
+  //   helperid=id;
+  //   helperUserId=userId;
     
-    await axios.post("http://localhost:8080/api/postComment",{comment:comment,userId:userid,postId:id})
+  //  }
+   async function handleComment(){
+    
+    await axios.post("http://localhost:8080/api/postComment",{comment:comment,userId:helperUserId,postId:helperid})
     .then((response)=>{
       console.log(response.data.data)
-      
+      console.log(helperid)
     })
 
     setComment("")
+    
 
    }
     
-async function handlePost(id){
+ function handlePost(id){
   history.push({pathname:"/commentsById",state:{postId:id}})
+ 
   
 }
 
 
   return (
-    <div>
-        <div className="card w-75 mt-2 " >
+    <div className='container mx-5'>
+       
         
             {responseData.map((temppost)=>(
                 
-                <div key={temppost.id}  >
-                    <div className="card-headercard text-white bg-secondary mb-2">{temppost.post_header}</div>
-                    <div className="card-body text-white bg-secondary  mb-5" onClick={()=>handlePost(temppost.id)}>
-                      <h5 className="card-title" >title</h5>
+                <div key={temppost.id}  className='card mt-5 w-75'>
+                    {/* <div className="card-headercard text-white bg-secondary text-start">{temppost.post_header}</div> */}
+                    <div className="card-body text-white bg-secondary  " >
+                      <h5 className="card-title text-start" onClick={()=>handlePost(temppost.id)}>Title: {temppost.post_header}</h5>
                       <p className="card-text" >{temppost.description}</p>
                       {
                       auth &&
                       <>
                       <div className='float-start'>
-                    <button  className="btn btn-primary" onClick={()=>handleLikesUp(temppost.likesFlag,temppost.likes_count,temppost.id)} >   <i className="bi bi-hand-thumbs-up-fill" ></i></button>
+                    <button  className="btn btn-primary" onClick={()=>handleLikesUp(temppost.likesFlag,temppost.likes_count,temppost.userId,temppost.id)} >   <i className="bi bi-hand-thumbs-up-fill" ></i></button>
                     <div className="vr" style={{padding:"1px"}}></div>
-                    <button  className="btn btn-primary"  onClick={()=>handleLikesDown(temppost.likesFlag,temppost.likes_count,temppost.id)} >   <i className="bi bi-hand-thumbs-down-fill"></i></button>
+                    <button  className="btn btn-primary"  onClick={()=>handleLikesDown(temppost.likesFlag,temppost.likes_count,temppost.userId,temppost.id)} >   <i className="bi bi-hand-thumbs-down-fill"></i></button>
                     <strong>{temppost.likes_count}</strong></div>
                     
                     
                   
 
                          
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" 
+            onClick={()=>{
+            sethelperUserId(temppost.userId)
+            sethelperid(temppost.id)
+            }}>
             <i className="bi bi-chat">Comment</i>
             </button>
 
@@ -148,7 +170,7 @@ async function handlePost(id){
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     {
-                    <button type="button" data-bs-dismiss='modal' className="btn btn-primary" onClick={()=>handleComment(temppost.userId,temppost.id)}>
+                    <button type="button" data-bs-dismiss='modal' className="btn btn-primary" onClick={()=>handleComment()}>
                       Save</button>}
                   </div>
                 </div>
@@ -164,6 +186,6 @@ async function handlePost(id){
  
 </div>
 
-    </div>
+  
   )
 }
