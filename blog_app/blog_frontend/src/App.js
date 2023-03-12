@@ -11,6 +11,7 @@ import PostByEmail from './components/PostByEmail';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import Footer from './components/Footer';
+import Comments from './components/Comments';
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
    </Route>
    <Route path='/profile'>
     <PostByEmail/>
+   </Route>
+   <Route path='/commentsById'>
+    <Comments/>
    </Route>
       
     

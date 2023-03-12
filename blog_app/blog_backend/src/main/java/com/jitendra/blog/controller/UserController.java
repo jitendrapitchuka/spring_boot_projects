@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jitendra.blog.dto.LoginRequestDto;
 import com.jitendra.blog.dto.SignupRequestDto;
+import com.jitendra.blog.entity.Comments;
 import com.jitendra.blog.entity.Posts;
+import com.jitendra.blog.service.CommentsService;
 import com.jitendra.blog.service.LoginService;
 import com.jitendra.blog.service.PostsService;
 import com.jitendra.blog.util.ApiResponse;
@@ -31,7 +33,8 @@ public class UserController {
 	
 	@Autowired
 	private PostsService thePostService;
-	
+	@Autowired
+	private CommentsService theCommentService;
 	@Autowired
 	private JwtUtils jwtUtils;
 	
@@ -94,6 +97,21 @@ public ResponseEntity<ApiResponse>  put(@RequestBody Posts thepost ) {
 		return ResponseEntity.ok().body(apiResponse);
 	}
 	
+	@PostMapping("/postComment")
+	public ResponseEntity<ApiResponse> postComm(@RequestBody Comments theComm){
+		
+		ApiResponse apiResponse=theCommentService.addComment(theComm);
+		
+		return ResponseEntity.ok().body(apiResponse);
+	}
+	
+	@GetMapping("/comments")
+	public ResponseEntity<ApiResponse> postComm(@RequestParam int postId){
+		
+		ApiResponse apiResponse=theCommentService.getComment(postId);
+		
+		return ResponseEntity.ok().body(apiResponse);
+	}
 	
 	
 

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 
 export default function Posts() {
@@ -7,7 +8,8 @@ export default function Posts() {
     const[responseData,setResponseData]=useState([])
     const [auth,setAuth]=useState(false)
     const[count,setCount]=useState(1)
-    
+    const[comment,setComment]=useState("")
+    const history=useHistory(null)
     useEffect(() => {
       const token=localStorage.getItem("token")
 
@@ -77,8 +79,23 @@ export default function Posts() {
     )
 
    }
-    
 
+   async function handleComment(userid,id){
+    
+    await axios.post("http://localhost:8080/api/postComment",{comment:comment,userId:userid,postId:id})
+    .then((response)=>{
+      console.log(response.data.data)
+      
+    })
+
+    setComment("")
+
+   }
+    
+async function handlePost(id){
+  history.push({pathname:"/commentsById",state:{postId:id}})
+  
+}
 
 
   return (
@@ -89,7 +106,7 @@ export default function Posts() {
                 
                 <div key={temppost.id}  >
                     <div className="card-headercard text-white bg-secondary mb-2">{temppost.post_header}</div>
-                    <div className="card-body text-white bg-secondary  mb-5">
+                    <div className="card-body text-white bg-secondary  mb-5" onClick={()=>handlePost(temppost.id)}>
                       <h5 className="card-title" >title</h5>
                       <p className="card-text" >{temppost.description}</p>
                       {
@@ -120,12 +137,19 @@ export default function Posts() {
                   <div className="modal-body">
                   <div className="input-group">
               {/* <span className="input-group-text">With textarea</span> */}
-              <textarea className="form-control" aria-label="With textarea"></textarea>
+              <textarea className="form-control" aria-label="With textarea" 
+              value={comment} 
+              onChange={(event)=>{
+         setComment(event.target.value)
+             }}
+             />
             </div>
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Save</button>
+                    {
+                    <button type="button" data-bs-dismiss='modal' className="btn btn-primary" onClick={()=>handleComment(temppost.userId,temppost.id)}>
+                      Save</button>}
                   </div>
                 </div>
               </div>
