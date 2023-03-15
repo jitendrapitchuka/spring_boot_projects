@@ -23,9 +23,9 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<ApiResponse> findall(){
+    public ResponseEntity<ApiResponse> findall(@RequestParam(defaultValue = "1") int pageno,@RequestParam(defaultValue = "5") int pagesize){
 
-        ApiResponse apiResponse=userRepo.findAll();
+        ApiResponse apiResponse=userRepo.findAll(pageno,pagesize);
 
         return ResponseEntity.ok().body(apiResponse);
 

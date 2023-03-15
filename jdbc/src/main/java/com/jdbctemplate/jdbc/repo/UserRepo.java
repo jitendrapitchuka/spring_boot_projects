@@ -43,10 +43,11 @@ public class UserRepo {
 
     }
 
-    public ApiResponse findAll(){
+    public ApiResponse findAll(int pageNumber,int pageSize){
+        int offset=(pageNumber-1)*pageSize;
         ApiResponse apiResponse=new ApiResponse();
-        String query="select * from user ";
-        List<User> l=jdbcTemplate.query(query, new BeanPropertyRowMapper(User.class));
+        String query="select * from user Limit ? offset ?";
+        List<User> l=jdbcTemplate.query(query, new BeanPropertyRowMapper(User.class),pageSize,offset);
         apiResponse.setData(l);
         return apiResponse;
     }
