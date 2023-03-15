@@ -1,6 +1,7 @@
 package com.jdbctemplate.jdbc.repo;
 
 import com.jdbctemplate.jdbc.entity.User;
+import com.jdbctemplate.jdbc.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,11 +17,16 @@ public class UserRepo {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void save(User user){
+    public ApiResponse save(User user){
+
+        ApiResponse apiResponse=new ApiResponse();
 
         String query="insert into user(id,name,age,city) values(?,?,?,?)";
 
         int ans=jdbcTemplate.update(query,user.getId(),user.getName(),user.getAge(),user.getCity());
+
+        apiResponse.setData("added succesfullly");
+        return apiResponse;
 
 
     }
@@ -37,10 +43,12 @@ public class UserRepo {
 
     }
 
-    public void findAll(){
+    public ApiResponse findAll(){
+        ApiResponse apiResponse=new ApiResponse();
         String query="select * from user ";
         List<User> l=jdbcTemplate.query(query, new BeanPropertyRowMapper(User.class));
-        System.out.println(l.toString());
+        apiResponse.setData(l);
+        return apiResponse;
     }
 
     public void findById(int id){
