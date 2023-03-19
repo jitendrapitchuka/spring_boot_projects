@@ -8,11 +8,14 @@ public class User {
     private int age;
     private String city;
 
-    public User(int id, String name, int age, String city) {
+    private String pass;
+
+    public User(int id, String name, int age, String city,String pass) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.city = city;
+        this.pass=pass;
     }
 
     public User(){
@@ -49,6 +52,14 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     @Override

@@ -5,8 +5,11 @@ import com.jdbctemplate.jdbc.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,16 +17,17 @@ import java.util.List;
 @Repository
 public class UserRepo {
 
-    @Autowired
+@Autowired
     private JdbcTemplate jdbcTemplate;
 
+    PasswordEncoder  encoder=new BCryptPasswordEncoder();
     public ApiResponse save(User user){
 
         ApiResponse apiResponse=new ApiResponse();
+        String hashPassword=encoder.encode(user.getPass());
+        String query="insert into user(id,name,age,city,pass) values(?,?,?,?,?)";
 
-        String query="insert into user(id,name,age,city) values(?,?,?,?)";
-
-        int ans=jdbcTemplate.update(query,user.getId(),user.getName(),user.getAge(),user.getCity());
+        int ans=jdbcTemplate.update(query,user.getId(),user.getName(),user.getAge(),user.getCity(),hashPassword);
 
         apiResponse.setData("added succesfullly");
         return apiResponse;
@@ -56,4 +60,11 @@ public class UserRepo {
         User user=jdbcTemplate.queryForObject("select * from user where id=?",new BeanPropertyRowMapper<>(User.class),id);
         System.out.println(user);
     }
+
+    public User findByName(String name){
+        User user=jdbcTemplate.queryForObject("select * from user where name=?",new BeanPropertyRowMapper<>(User.class),name);
+       return user;
+    }
+
+
 }
