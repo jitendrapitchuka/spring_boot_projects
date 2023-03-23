@@ -1,0 +1,26 @@
+Clone the project
+
+setup databases according to entity class.
+
+
+For all db id is the primary key and it should be auto increment.And give the datatype according to entity class.
+
+db_name : posts
+------------------------------------------------------------------------------------
+id  |   post_header  |  description  |   likes_count |  email_id | user_id  | likes_flag 
+-----------------------------------------------------------------------------------------
+
+db_name:user_signup  (for password varchar(100) )
+--------------------------------------------------------------------------------------
+id  |  first_name  |  last_name  |  email  |  password 
+-----------------------------------------------------------------------------------
+
+db_name :comments
+
+----------------------------------------------------------------------------
+id |  comment  |  user_id  |  post_id
+------------------------------------------------------------------------
+
+
+
+Run the react and spring boot in different ports.
