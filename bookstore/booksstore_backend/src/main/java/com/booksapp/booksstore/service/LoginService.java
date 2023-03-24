@@ -45,7 +45,7 @@ public class LoginService {
         if(flag==false ){
             throw new Exception("------------->password not match<----------");
         }
-   
+
 
         String token=jwtUtils.generateJwt(theLogin);
         Map<String,Object>m=new HashMap<>();
