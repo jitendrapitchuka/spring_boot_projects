@@ -9,6 +9,9 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import Search from './components/Search';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import ViewBookDetails from './components/ViewBookDetails';
+import AllReview from './components/AllReview';
 
 
 function App() {
@@ -32,6 +35,12 @@ function App() {
 </Route>
 <Route path="/search">
 <Search/>
+</Route>
+<Route path="/details">
+<ViewBookDetails/>
+</Route>
+<Route path="/allReviews">
+<AllReview/>
 </Route>
 
 

@@ -96,4 +96,19 @@ private String img;
     public void setInstock(boolean instock) {
         this.instock = instock;
     }
+
+    @Override
+    public String toString() {
+        return "Books{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", book_title='" + book_title + '\'' +
+                ", book_description='" + book_description + '\'' +
+                ", img='" + img + '\'' +
+                ", book_cost=" + book_cost +
+                ", instock=" + instock +
+                '}';
+    }
 }
+
+
