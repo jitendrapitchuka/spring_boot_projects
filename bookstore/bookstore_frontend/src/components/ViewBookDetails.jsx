@@ -1,12 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom';
-export default function ViewBookDetails() {
+import { useHistory, useLocation,Link } from 'react-router-dom';
+import SpinnerLoading from './SpinnerLoading';
+export default function ViewBookDetails(props) {
 
     const location = useLocation();
     const [responseData,setResponseData]=useState([])
     const [reviewDescri,setReviewDescri]=useState("")
     const history=useHistory(null)
+    const [isLoading, setIsLoading] = useState(true);
+    
+
     let id
 
     useEffect(() => {
@@ -14,6 +18,7 @@ export default function ViewBookDetails() {
         axios.get(`http://localhost:8080/api/bookById?bookId=${location.state.bookId}`)
         .then((response)=>{
             setResponseData(response.data.data)
+            setIsLoading(false)
         })
     
       
@@ -28,16 +33,24 @@ export default function ViewBookDetails() {
         })
     }
 
+    if(isLoading){
+        return (
+            <SpinnerLoading/>
+        )
+    }
+
     const handleAllReview=()=>{
         history.push("/allReviews",{bookId:responseData.id})
         console.log(responseData.id)
     }
 
+   
+
   return (
     <div className="container">
     <div className="row mt-5">
       <div className="col-md-4 d-flex align-items-center">
-        <img src={require("../Image/img5.jpg")} style={{width:"250px", height:"300px"}} alt="..." />
+        <img src={responseData.image} style={{width:"250px", height:"300px"}} alt="..." />
       </div>
       <div className="col-md-7 d-flex align-items-center">
         <div className="card">
@@ -45,13 +58,24 @@ export default function ViewBookDetails() {
             
         <div className='float-end d-flex gap-5'>
             <h5 className='text-info-emphasis'>{responseData.book_cost}Rs</h5>
+            {
+             props.authStatus?   
             <button className='btn btn-success'>Add to cart</button>
-        </div>
+            :
+            <Link className='btn btn-success' to="/login">Add to cart ? Login</Link>
+            }
+
+            </div>
 
         <h3 className="card-title">{responseData.book_title}</h3>
         <h5>{responseData.author}</h5>
         <p className="card-text">{responseData.book_description}</p>
-        <h6 className='text-success'>Instock</h6>
+        {
+            responseData.instock?
+        <span className='badge text-bg-success p-2 '>Instock</span>
+        :
+        <h6 className='badge text-bg-danger p-2'>out of stock</h6>
+        }
         <hr/>
         <div className='d-flex justify-content-center align-items-center'>
         <h6><b>Published by :</b> Jitendra publications private Ltd.</h6>

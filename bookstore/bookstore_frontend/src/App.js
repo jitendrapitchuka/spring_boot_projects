@@ -12,12 +12,26 @@ import Search from './components/Search';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import ViewBookDetails from './components/ViewBookDetails';
 import AllReview from './components/AllReview';
+import { useState } from 'react';
 
 
 function App() {
+
+  const[authStatus,setAuthStatus]=useState(false)
+
+  const handleLogout=()=>{
+    sessionStorage.removeItem("token")
+    setAuthStatus(false)
+  }
+
+  const handleLoginAuthStatus=()=>{
+  
+    setAuthStatus(true)
+  }
+
   return (
     <div>
-      <Navbar/>
+      <Navbar handleLogout={handleLogout} authStatus={authStatus}/>
 
 <Switch>
 <Route path='/' exact>
@@ -25,7 +39,7 @@ function App() {
    </Route>
 
 <Route path="/login">
-<Login/>
+<Login handleLoginAuthStatus={handleLoginAuthStatus}/>
 </Route>
 <Route path="/signup">
 <Signup/>
@@ -34,10 +48,10 @@ function App() {
 <Home/>
 </Route>
 <Route path="/search">
-<Search/>
+<Search authStatus={authStatus}/>
 </Route>
 <Route path="/details">
-<ViewBookDetails/>
+<ViewBookDetails authStatus={authStatus}/>
 </Route>
 <Route path="/allReviews">
 <AllReview/>

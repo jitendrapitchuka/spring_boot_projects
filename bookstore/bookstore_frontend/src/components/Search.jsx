@@ -1,33 +1,48 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Form } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
-export default function Search() {
+import { Form } from 'react-bootstrap';
+import { useHistory,useLocation } from 'react-router-dom';
+import SpinnerLoading from './SpinnerLoading';
+
+export default function Search(props) {
 
     const history=useHistory(null)
     const[search,setSearch]=useState("")
     const[responseData,setResponseData]=useState([])
-    // const[arr,setArr]=useState([])
     const [isChecked1, setIsChecked1] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
     const [isChecked3, setIsChecked3] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const { searching } = useLocation();
     
+    const redirect = new URLSearchParams(searching).get('redirect');
+    let filteredData
 
     useEffect(() => {
-      
-        axios.get("http://localhost:8080/api/books")
-        .then((response)=>{
-            setResponseData(response.data.data)
-            console.log(response.data.data)
-        })
 
-    }, [isChecked1,isChecked2,isChecked3])
+            axios.get("http://localhost:8080/api/books")
+            .then((response)=>{
+                setResponseData(response.data.data)
+                
+                setIsLoading(false)
+            })
+
+
+    }, [])
     
+    if(isLoading){
+        return (
+            <SpinnerLoading/>
+        )
+    }
+
     const handleSearch=()=>{
         axios.get(`http://localhost:8080/api/booksBySearch?search=${search}`)
         .then((response)=>{
             setResponseData(response.data.data)
+            console.log(response.data.data)
+            
         }
 
         )
@@ -35,18 +50,20 @@ export default function Search() {
     }
 
     const handleDesc=()=>{
-        axios.get("http://localhost:8080/api/sortBooksDesc")
-        .then((response)=>{
-            setResponseData(response.data.data)
-        })
+        const sortedProducts = [...responseData].sort((a, b) => {
+            return b.book_cost - a.book_cost;
+           })
+           setResponseData(sortedProducts)
     }
 
     const handleAsc=()=>{
-        axios.get("http://localhost:8080/api/sortBooksAsc")
-        .then((response)=>{
-            setResponseData(response.data.data)
-        })
+
+        const sortedProducts = [...responseData].sort((a, b) => {
+             return a.book_cost - b.book_cost;
+            })
+            setResponseData(sortedProducts)
     }
+
 
     const handleCheckboxChange1= (event) => {
         setIsChecked1(event.target.checked);
@@ -63,32 +80,39 @@ export default function Search() {
       };
       
 
-      if(isChecked1){
-        axios.post("http://localhost:8080/api/filterByAuthor",[
-            "ramu"
-        ]).then((response)=>{
-                setResponseData(response.data.data)
-        })
-      } 
-       if(isChecked2){
-        axios.post("http://localhost:8080/api/filterByAuthor",[
-            "balu"
-        ]).then((response)=>{
-                setResponseData(response.data.data)
-        })
-      } 
-       if(isChecked3){
-        axios.post("http://localhost:8080/api/filterByAuthor",[
-            "sita"
-        ]).then((response)=>{
-                setResponseData(response.data.data)
-        })
-      } 
+    filteredData = responseData.filter((item) => {
+        if (isChecked1 && isChecked2 && isChecked3) {
+          return item.author==='ramu' || item.author==='balu' || item.author==='sita'
+        }
+        else if(isChecked1 && isChecked2){
+            return item.author==='ramu' ||  item.author==='balu'}
+        else if(isChecked2 && isChecked3)
+            return item.author==='sita' ||  item.author==='balu'
+        else if(isChecked1 && isChecked3)
+            return item.author==='ramu' ||  item.author==='sita' 
+        else if (isChecked1) {
+          return item.author==='ramu' 
+        } else if (isChecked2) {
+          return item.author==='balu'
+        }
+        else if(isChecked3)
+          return item.author==='sita'
+         
+        else{
+            filteredData=responseData
+        return  true
+        
+        }
+      });
       
       const handleViewDetails=(id)=>{
         history.push("/details",{bookId:id})
       }
     
+      const handleRedirectToLogin=()=>{
+        history.push(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+
+    }
 
   return (
     <div>
@@ -113,18 +137,24 @@ export default function Search() {
     <button className='btn btn-primary' onClick={handleSearch}>Search</button>
     </div>
 
-    {responseData.map((tempbook)=>(
+    {filteredData.map((tempbook)=>(
     <div className="card mb-3  mx-4 mt-3" style={{width: "1000px"}} key={tempbook.id}>
   <div className="row g-0">
     <div className="col-md-4">
-      <img src={tempbook.img} className="img-fluid rounded-start" alt="..."/>
+      <img src={tempbook.image}
+            className="img-fluid rounded-start" alt="..."/>
     </div>
     
     <div className="col-md-8">
       <div className="card-body">
         <div className='float-end d-flex gap-5'>
             <h5 className='text-info-emphasis'>{tempbook.book_cost}RS</h5>
-      <button className='btn btn-primary'>Add to cart</button>
+            {
+                props.authStatus?
+      <button className='btn btn-primary' onClick={()=>{if(redirect)history.push(redirect)}}>Add to cart</button>
+      :
+      <button className='btn btn-primary' onClick={handleRedirectToLogin}>Add to cart ? Login</button>
+            }
       </div>
         <h3 className="card-title">{tempbook.book_title}</h3>
         

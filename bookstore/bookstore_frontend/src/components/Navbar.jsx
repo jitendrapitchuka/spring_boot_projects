@@ -1,7 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Navbar() {
+export default function Navbar(props) {
+
+  // const[authStatus,setAuthStatus]=useState(false)
+
+  // useEffect(() => {
+  //   const getToken=sessionStorage.getItem("token")
+  //   setAuthStatus(!!getToken)
+  // }, [])
+  
+
+
   return (
     <div>
         <nav className="navbar navbar-dark navbar-expand-lg bg-dark sticky-top">
@@ -16,8 +26,13 @@ export default function Navbar() {
         <Link className="nav-link" to="/search">Search</Link>
         <Link className="nav-link" to="#">Profile</Link>
         
+        {
+        props.authStatus?
+        <Link className="nav-link"  to="/login" onClick={props.handleLogout}>Logout</Link>
+        :
         <Link className="nav-link" to="/login">Login</Link>
-        <Link className="nav-link" to="/signup">SignUp</Link>
+        }
+        
         
       </div>
     </div>

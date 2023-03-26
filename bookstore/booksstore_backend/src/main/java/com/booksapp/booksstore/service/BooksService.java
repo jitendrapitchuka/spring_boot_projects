@@ -30,29 +30,8 @@ public class BooksService {
         return apiResponse;
     }
 
-    public ApiResponse sortBookspriceAsc(){
-        ApiResponse apiResponse=new ApiResponse();
+  
 
-        List<Books> l=booksRepo.sortBookByPriceAsc();
-        apiResponse.setData(l);
-        return apiResponse;
-    }
-
-    public ApiResponse sortBookspriceDesc(){
-        ApiResponse apiResponse=new ApiResponse();
-
-        List<Books> l=booksRepo.sortBookByPriceDesc();
-        apiResponse.setData(l);
-        return apiResponse;
-    }
-
-    public ApiResponse FilterByauthor(List<String> li){
-        ApiResponse apiResponse=new ApiResponse();
-
-        List<Books> l=booksRepo.FilterBooks(li);
-        apiResponse.setData(l);
-        return apiResponse;
-    }
 
     public ApiResponse findBookByid(int id){
         ApiResponse apiResponse=new ApiResponse();

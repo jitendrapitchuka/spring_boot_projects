@@ -20,7 +20,7 @@ public class Books {
     private String book_description;
 
 @Column(name = "image")
-private String img;
+private String image;
 
 @Column(name = "book_cost")
     private int book_cost;
@@ -36,7 +36,7 @@ private String img;
         this.author = author;
         this.book_title = book_title;
         this.book_description = book_description;
-        this.img = img;
+        this.image = img;
         this.book_cost = book_cost;
         this.instock = instock;
     }
@@ -73,12 +73,12 @@ private String img;
         this.book_description = book_description;
     }
 
-    public String getImg() {
-        return img;
+    public String getImage() {
+        return image;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImage(String img) {
+        this.image = img;
     }
 
     public int getBook_cost() {
@@ -104,7 +104,7 @@ private String img;
                 ", author='" + author + '\'' +
                 ", book_title='" + book_title + '\'' +
                 ", book_description='" + book_description + '\'' +
-                ", img='" + img + '\'' +
+                ", img='" + image + '\'' +
                 ", book_cost=" + book_cost +
                 ", instock=" + instock +
                 '}';

@@ -30,26 +30,6 @@ public class BooksController {
         return ResponseEntity.ok().body(apiResponse);
     }
 
-    @GetMapping("/sortBooksAsc")
-    public ResponseEntity<ApiResponse> SortBooksAsc(){
-        ApiResponse apiResponse=booksService.sortBookspriceAsc();
-
-        return ResponseEntity.ok().body(apiResponse);
-    }
-
-    @GetMapping("/sortBooksDesc")
-    public ResponseEntity<ApiResponse> SortBooksDesc(){
-        ApiResponse apiResponse=booksService.sortBookspriceDesc();
-
-        return ResponseEntity.ok().body(apiResponse);
-    }
-
-    @PostMapping("/filterByAuthor")
-    public ResponseEntity<ApiResponse> FilterAuthor(@RequestBody List<String> l ){
-        ApiResponse apiResponse=booksService.FilterByauthor(l);
-
-        return ResponseEntity.ok().body(apiResponse);
-    }
 
     @GetMapping("/bookById")
     public ResponseEntity<ApiResponse> BookById(@RequestParam("bookId") int id){
