@@ -29,9 +29,10 @@ export default function Login(props) {
               } else {
                 history.push('/home');
               }
-              sessionStorage.setItem("token",response.data.data.token)
+              localStorage.setItem("token",response.data.data.token)
               props.handleLoginAuthStatus()
               setDisplayWarning(false)
+              props.setEmail(email)
             }
   
         })

@@ -13,15 +13,34 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import ViewBookDetails from './components/ViewBookDetails';
 import AllReview from './components/AllReview';
 import { useState } from 'react';
+import axios from 'axios';
+import Cart from './components/Cart';
+
+
+
 
 
 function App() {
 
   const[authStatus,setAuthStatus]=useState(false)
-
+  // const[cartRemButton,setCartRemButton]=useState(false)
+  const[email,setEmail]=useState("")
+  
+const [count,setCount]=useState(0)
+  
   const handleLogout=()=>{
-    sessionStorage.removeItem("token")
+   
     setAuthStatus(false)
+    localStorage.clear()
+    setCount(0)
+    handledeletebyemail()
+  }
+
+  const handledeletebyemail=async()=>{
+    await axios.delete(`http://localhost:8080/api/deletebyemail?email=${email}`)
+    .then((response)=>{
+      console.log(response.data.data)
+    })
   }
 
   const handleLoginAuthStatus=()=>{
@@ -29,9 +48,11 @@ function App() {
     setAuthStatus(true)
   }
 
+  console.log(email)
+
   return (
     <div>
-      <Navbar handleLogout={handleLogout} authStatus={authStatus}/>
+      <Navbar handleLogout={handleLogout} authStatus={authStatus} count={count}/>
 
 <Switch>
 <Route path='/' exact>
@@ -39,7 +60,7 @@ function App() {
    </Route>
 
 <Route path="/login">
-<Login handleLoginAuthStatus={handleLoginAuthStatus}/>
+<Login handleLoginAuthStatus={handleLoginAuthStatus} setEmail={setEmail}/>
 </Route>
 <Route path="/signup">
 <Signup/>
@@ -48,13 +69,16 @@ function App() {
 <Home/>
 </Route>
 <Route path="/search">
-<Search authStatus={authStatus}/>
+<Search authStatus={authStatus} email={email}  setCount={setCount} count={count}/>
 </Route>
 <Route path="/details">
 <ViewBookDetails authStatus={authStatus}/>
 </Route>
 <Route path="/allReviews">
 <AllReview/>
+</Route>
+<Route path="/cart">
+<Cart email={email}/>
 </Route>
 
 

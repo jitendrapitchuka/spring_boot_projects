@@ -9,9 +9,10 @@ export default function ViewBookDetails(props) {
     const [reviewDescri,setReviewDescri]=useState("")
     const history=useHistory(null)
     const [isLoading, setIsLoading] = useState(true);
-    
+      
 
     let id
+
 
     useEffect(() => {
       
@@ -45,6 +46,7 @@ export default function ViewBookDetails(props) {
     }
 
    
+   
 
   return (
     <div className="container">
@@ -57,14 +59,23 @@ export default function ViewBookDetails(props) {
           <div className="card-body">
             
         <div className='float-end d-flex gap-5'>
+           
             <h5 className='text-info-emphasis'>{responseData.book_cost}Rs</h5>
             {
+            !location.state.addedToCartStatus?
+            <div>
+            {
              props.authStatus?   
-            <button className='btn btn-success'>Add to cart</button>
+            <button className='btn btn-success' >
+                Add to cart</button>
             :
             <Link className='btn btn-success' to="/login">Add to cart ? Login</Link>
             }
-
+            </div>
+            :
+            <button className='btn btn-danger' >
+                Remove</button>
+        }
             </div>
 
         <h3 className="card-title">{responseData.book_title}</h3>
