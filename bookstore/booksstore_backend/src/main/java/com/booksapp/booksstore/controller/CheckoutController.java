@@ -35,11 +35,11 @@ public class CheckoutController {
         return ResponseEntity.ok().body(apiResponse);
     }
 
-//    @GetMapping("/getByemail")
-//    public ResponseEntity<ApiResponse> BookById(@RequestParam("email") String email){
-//        ApiResponse apiResponse=checkoutService.findByemail(email);
-//
-//        return ResponseEntity.ok().body(apiResponse);
-//    }
+    @GetMapping("/getByemail")
+    public ResponseEntity<ApiResponse> BookByemail(@RequestParam("email") String email){
+        ApiResponse apiResponse=checkoutService.findByemail(email);
+
+        return ResponseEntity.ok().body(apiResponse);
+    }
 
 }

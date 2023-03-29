@@ -46,14 +46,14 @@ public class CheckoutService {
         return apiResponse;
     }
 
-//    public ApiResponse findByemail(String email){
-//        ApiResponse apiResponse=new ApiResponse();
-//
-//
-//        checkoutRepo.findByemail(email);
-//
-//
-//
-//        return apiResponse;
-//    }
+    public ApiResponse findByemail(String email){
+        ApiResponse apiResponse=new ApiResponse();
+
+
+        apiResponse.setData(checkoutRepo.findByemail(email));
+
+
+
+        return apiResponse;
+    }
 }

@@ -38,7 +38,8 @@ export default function Navbar(props) {
     </div>
   </div>
   <div className='mx-5 mt-3 position-relative'>
-  <i className="bi bi-cart" style={{color:"white",fontSize:"30px"}}></i>
+    <Link to="/cart">
+  <i className="bi bi-cart" style={{color:"white",fontSize:"30px"}} ></i></Link>
   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{props.count}</span>
   </div>
 </nav>

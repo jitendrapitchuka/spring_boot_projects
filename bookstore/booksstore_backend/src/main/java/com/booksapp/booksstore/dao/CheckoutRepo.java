@@ -46,17 +46,14 @@ public class CheckoutRepo {
 
     }
 
-//    public void findByemail(String email){
-//        String sql="Select book_id from checkout where email=?";
-//        List<Checkout>l=jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Checkout.class),email);
-//    System.out.println(l);
-//
-////        String sql = "SELECT b.image, b.book_title "
-////                + "FROM book b "
-////                + "INNER JOIN checkout c ON b.id = c.book_id "
-////                + "WHERE b.id = ?";
-////        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Books.class),id);
-//
-//    }
+    public List<Books> findByemail(String email){
+
+        String query="select b.image,b.book_title from books_store.books b join books_store.checkout c on b.id=c.book_id where c.email=? " ;
+
+        List<Books> b=jdbcTemplate.query(query,new BeanPropertyRowMapper<>(Books.class),email);
+        System.out.println(b);
+        return b;
+
+    }
 
 }
